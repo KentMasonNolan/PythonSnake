@@ -1,22 +1,41 @@
 import pygame
-from snake import *
+import time
+import random
+
+snake_speed = 15
+
+window_x = 720
+window_y = 480
+
+black = pygame.Color(0, 0, 0)
+white = pygame.Color(255, 255, 255)
+red = pygame.Color(255, 0, 0)
+green = pygame.Color(0, 255, 0)
+blue = pygame.Color(0, 0, 255)
 
 pygame.init()
-bounds = (300, 300)
-window = pygame.display.set_mode(bounds)
-pygame.display.set_caption("Snake")
 
-block_size = 20
-snake = Snake(block_size, bounds)
+pygame.display.set_caption('Snake')
+game_window = pygame.display.set_mode((window_x, window_y))
 
-run = True
-while run:
-    pygame.time.delay(100)
+fps = pygame.time.Clock()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+# defining snake default position
+snake_position = [100, 50]
 
-    window.fill((0, 0, 0))
-    snake.draw(pygame, window)
-    pygame.display.flip()
+# defining first 4 blocks of snake
+# body
+snake_body = [[100, 50],
+              [90, 50],
+              [80, 50],
+              [70, 50]
+              ]
+# fruit position
+fruit_position = [random.randrange(1, (window_x // 10)) * 10,
+                  random.randrange(1, (window_y // 10)) * 10]
+fruit_spawn = True
+
+# setting default snake direction
+# towards right
+direction = 'RIGHT'
+change_to = direction
